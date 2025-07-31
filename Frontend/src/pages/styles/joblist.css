@@ -1,0 +1,36 @@
+/* JobList Container */
+.job-list-container {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Title */
+.job-list-title {
+  font-size: 2.2rem;
+  text-align: center;
+  color: #1B3C53;
+  margin-bottom: 2rem;
+}
+
+/* Job Cards Grid */
+.job-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #456882;
+}
+
+/* No Jobs Message */
+.no-jobs {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #999;
+  margin-top: 2rem;
+}
