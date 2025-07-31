@@ -1,0 +1,122 @@
+/* Main Container */
+.post-job-container {
+  min-height: 100vh;
+  background-color: #F9F3EF;
+  padding: 3rem 1rem;
+}
+
+.post-job-form-container {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.post-job-header {
+  background-color: #1B3C53;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.post-job-title-bar {
+  background-color: #456882;
+  padding: 1.5rem;
+}
+
+.post-job-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #F9F3EF;
+  margin: 0;
+}
+
+.post-job-subtitle {
+  color: #D2C1B6;
+  margin: 0.25rem 0 0;
+}
+
+/* Form Styles */
+.post-job-form {
+  padding: 2rem 1.5rem;
+}
+
+.post-job-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .post-job-form-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+.post-job-form-group {
+  margin-bottom: 1rem;
+}
+
+.post-job-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1B3C53;
+  margin-bottom: 0.5rem;
+}
+
+.post-job-input,
+.post-job-textarea,
+.post-job-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #D2C1B6;
+  border-radius: 0.375rem;
+  background-color: #F9F3EF;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.post-job-input:focus,
+.post-job-textarea:focus,
+.post-job-select:focus {
+  outline: none;
+  border-color: #456882;
+  box-shadow: 0 0 0 2px rgba(69, 104, 130, 0.2);
+}
+
+.post-job-textarea {
+  min-height: 8rem;
+}
+
+/* Error Message */
+.post-job-error {
+  background-color: #FEE2E2;
+  border-left: 4px solid #DC2626;
+  color: #B91C1C;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Submit Button */
+.post-job-submit-btn {
+  background-color: #456882;
+  color: #F9F3EF;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.post-job-submit-btn:hover {
+  background-color: #3A5A72;
+}
+
+.post-job-submit-btn:disabled {
+  background-color: #D2C1B6;
+  cursor: not-allowed;
+}
