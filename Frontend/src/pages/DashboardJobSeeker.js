@@ -28,7 +28,7 @@ const DashboardJobSeeker = () => {
 
   const applyToJob = async (jobId) => {
     try {
-      await api.post(/jobs/${jobId}/apply);
+      await api.post(`/jobs/${jobId}/apply`);
       alert('Application submitted!');
     } catch (err) {
       alert(err.response?.data?.message || 'Application failed');

@@ -12,7 +12,7 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const response = await api.get(/jobs/${id});
+        const response = await api.get(`/jobs/${id}`);
         setJob(response.data);
       } catch (error) {
         console.error('Error fetching job details:', error);
@@ -26,7 +26,7 @@ const JobDetails = () => {
   const navigate = useNavigate();
 
   const handleApply = () => {
-    navigate(/jobs/${id}/apply); 
+    navigate(`/jobs/${id}/apply`);
   };
 
   if (loading) return <p>Loading job details...</p>;

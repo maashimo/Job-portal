@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../api';
 
 const ApplicationForm = ({ jobId }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ const ApplicationForm = ({ jobId }) => {
     data.append('coverLetter', formData.coverLetter);
     
     try {
-      await api.post(/api/jobs/${jobId}/apply, data);
+      await api.post(`/api/jobs/${jobId}/apply`, data);
       alert('Application submitted successfully!');
     } catch (err) {
       console.error(err);

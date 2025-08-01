@@ -35,7 +35,7 @@ const Login = () => {
       window.dispatchEvent(new Event('storage'));
 
 
-      navigate(/${res.data.user.role}/dashboard);
+      navigate(`/${res.data.user.role}/dashboard`);
     } catch (err) {
       setErrors({
         message: err.response?.data?.message || 'Login failed. Please try again.'
