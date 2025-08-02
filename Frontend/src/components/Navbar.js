@@ -57,6 +57,7 @@ const Navbar = () => {
             <NavLink to="/explore" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Explore</NavLink>
             <NavLink to="/contact" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Contact us</NavLink>
             <NavLink to="/store" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Store</NavLink>
+            <NavLink to="/about" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>About us</NavLink>
           </nav>
         )}
 
