@@ -7,23 +7,29 @@ import './styles/DashboardRecruiter.css';
 const DashboardRecruiter = () => {
   const [jobs, setJobs] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [recruiter, setRecruiter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch jobs on component mount
+  // Fetch recruiter information and jobs
+  const fetchJobsAndProfile = async () => {
+    try {
+      const [jobsRes, userRes] = await Promise.all([
+        api.get('/jobs/my-jobs'),
+        api.get('/auth/me')
+      ]);
+      setJobs(jobsRes.data);
+      setRecruiter(userRes.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to load data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const response = await api.get('/jobs/my-jobs');
-        setJobs(response.data);
-      } catch (err) {
-        setError(err.response?.data?.message || 'Failed to load jobs');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJobs();
+    fetchJobsAndProfile();
   }, []);
 
   // Handle input changes in the job form
@@ -33,11 +39,28 @@ const DashboardRecruiter = () => {
     setShowForm(false);
   };
 
+  // Handle logout
+  const handleLogout = async () => {
+    sessionStorage.clear();
+    navigate('/login');
+  };
+
   if (loading) return <div className="loading">Loading your job posting...</div>
   if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="recruiter-dashboard">
+      {recruiter && (
+        <div className="recruiter-info">
+          <h2>Welcome, {recruiter.name}</h2>
+          <p><strong>Email:</strong> {recruiter.email}</p>
+          { recruiter.company && <p><strong>Company:</strong> {recruiter.company}</p>}
+          <button onClick={() => navigate('/edit-profile')} className="edit-profile-btn">
+            Edit
+          </button>
+        </div>
+      )}
+          
       <div className="dashboard-header">
         <h1>Your Job Postings</h1>
         <button 
@@ -96,6 +119,12 @@ const DashboardRecruiter = () => {
           ))
         )}
       </div>
+
+      <div className="logout">
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>  
     </div>
   );
 };

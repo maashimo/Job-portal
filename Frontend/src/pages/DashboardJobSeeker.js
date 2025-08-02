@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import ProtectedRoute from '../components/ProtectedRoute';
 import './styles/DashboardJobSeeker.css';
@@ -7,6 +8,8 @@ const DashboardJobSeeker = () => {
   const [jobs, setJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,10 +38,21 @@ const DashboardJobSeeker = () => {
     }
   };
 
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate('/login');
+  }
+
   return (
     <ProtectedRoute roles={['job_seeker']}>
       <div className="dashboard">
-        <h1>Job Seeker Dashboard</h1>
+        <div className="dashboard-header">
+          <div>
+            <h1>Welcome,{user?.name}</h1>
+            <p>Email: {user?.email}</p>
+          </div>
+          <button className="edit-btn" onClick={() => navigate('/edit-profile')}>Edit Profile</button>
+        </div>'
         
         <section className="job-listings">
           <h2>Available Jobs</h2>
@@ -74,6 +88,10 @@ const DashboardJobSeeker = () => {
             </ul>
           )}
         </section>
+
+        <div className="logout">
+          <button onClick={handleLogout} className="logout-btn">Logout</button>
+        </div>
       </div>
     </ProtectedRoute>
   );
