@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
         return errorHandler(res, 400, 'Company name is required for recruiters');
       }
 
-      if (!domain || freeEmailDomains.includes(domain)) {
+      if (!emailDomain || freeEmailDomains.includes(emailDomain)) {
         return errorHandler(res, 400, 'Recruiters must use a company email address');
       }
     }
