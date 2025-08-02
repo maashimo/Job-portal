@@ -1,10 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link component
+import background from '../assets/background.jpg';
 import './styles/Home.css';
 
 const Home = () => {
   return (
-    <div className="home-page">
+    <div 
+      className="home-page"
+      style={{ 
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        height: '100vh',
+        color: '#fff'
+      }}
+    >
       
       <main className="home-content">
         <section className="hero-section">
