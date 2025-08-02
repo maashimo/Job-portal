@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const authenticateUser = require('../middlewares/auth');
+const protect = require('../middlewares/auth');
 
 // Register
 router.post('/register', async (req, res) => {
@@ -47,7 +49,7 @@ router.post('/register', async (req, res) => {
     });
 
   } catch (err) {
-    console.error('Registration error:', err);
+    console.error('Registration error', err);
 
     let message = 'Server error';
 
@@ -99,9 +101,61 @@ router.post('/login', async (req, res) => {
     });
 
   } catch (err) {
-    console.error('Login error:', err);
+    console.error('Login error', err);
     return res.status(500).json({ message: 'Server error' });
   }
 });
+
+router.get('/user/info', authenticateUser, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    return res.json(user);
+  } catch (err) {
+    console.error('Error fetching user info', err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get current user profile
+router.get('/me', protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    return res.json(user);
+  } catch (err) {
+    console.error('Error fetching user profile', err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Update user profile
+// PUT /api/auth/update-profile
+router.put('/update-profile', protect, async (req, res) => {
+  try {
+    const updates = req.body;
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update fields
+    user.name = updates.name || user.name;
+
+    await user.save();
+
+    res.json({ message: 'Profile updated successfully' });
+
+  } catch (err) {
+    console.error('Update error', err);
+    return res.status(500).json({ message: 'Server error while updating profile' });
+  }
+});
+
 
 module.exports = router;
