@@ -11,8 +11,10 @@ import Navbar from './components/Navbar';
 import Unauthorized from './pages/Unauthorized';
 import JobDetails from './pages/JobDetails';
 import ApplicationForm from './components/ApplicationForm';
-
-//abc
+import EditProfileForm from './components/EditProfileForm';
+import ContactUs from './pages/ContactUs';
+import Explore from './pages/Explore';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -26,7 +28,11 @@ function App() {
         <Route path="/jobs/:id" element={<JobDetails />} />
         <Route path="/jobs/:id/apply" element={<ApplicationForm />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
-        
+        <Route path="/edit-profile" element={<EditProfileForm />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/about" element={<AboutUs />} />
+
         {/* Protected Routes */}
         
         <Route path="/post-job" element={
