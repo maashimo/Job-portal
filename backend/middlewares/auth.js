@@ -3,16 +3,18 @@ const errorHandler = require('../utils/errorHandler');
 
 const protect = async (req, res, next) => {
   try {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
-    if (!token) throw new Error('Authentication required');
+    const authHeader = req.header('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return errorHandler(res, 401, 'No token provided');
+    }
 
+    const token = authHeader.replace('Bearer ', '').trim();
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+
+    req.user = { id: decoded.id }; // Attach user ID to request
     next();
   } catch (err) {
     console.error('JWT Auth Error:', err.message);
-    errorHandler(res, 401, 'Invalid or expired token');
+    return errorHandler(res, 401, 'Invalid or expired token');
   }
 };
-
-module.exports = protect;
